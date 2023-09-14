@@ -1,14 +1,14 @@
 ---
-- name: Validar actualizaciones pendientes en sistemas Windows
-  hosts: all
-  gather_facts: no
+- name: Crear archivo de texto con hora y fecha en disco C
+  hosts: windows_servers
   tasks:
-    - name: Verificar actualizaciones pendientes
-      win_updates:
-        state: pending
-      register: pending_updates
+    - name: Obtener hora y fecha del servidor
+      win_shell: Get-Date -Format "yyyy-MM-dd HH-mm-ss"
+      register: server_datetime
 
-    - name: Mostrar listado de actualizaciones pendientes
-      debug:
-        var: pending_updates
+    - name: Crear archivo de texto con hora y fecha
+      win_shell: |
+        $Content = "{{ server_datetime.stdout }}"
+        Set-Content -Path "C:\archivo_con_fecha.txt" -Value $Content
+
 
