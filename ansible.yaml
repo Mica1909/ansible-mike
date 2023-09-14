@@ -1,6 +1,6 @@
 ---
 - name: Crear archivo de texto con hora y fecha en disco C
-  hosts: windows_servers
+  hosts: all
   tasks:
     - name: Obtener hora y fecha del servidor
       win_shell: Get-Date -Format "yyyy-MM-dd HH-mm-ss"
