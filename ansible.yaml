@@ -1,0 +1,19 @@
+---
+- name: Actualizar Servidores
+  hosts: all
+  tasks:
+    - name: Descargar e instalar actualizaciones de Windows
+      win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+        reboot: yes
+      register: update_result
+
+    - name: Registrar tiempo de instalación y reinicio
+      win_shell: |
+        $Now = Get-Date
+        $ElapsedTime = $Now - [DateTime]{{ update_result.start }}
+        Add-Content -Path "C:\update_duration.log" -Value "Inicio de actualización: $Now"
+        Add-Content -Path "C:\update_duration.log" -Value "Duración de la actualización: $ElapsedTime"
+      when: update_result.reboot_required == true
