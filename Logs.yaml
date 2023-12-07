@@ -1,9 +1,9 @@
 ---
-- name: Actualizar Windows y guardar información en un archivo de registro
-  hosts: all
+- name: Descargar e instalar actualizaciones en Windows
+  hosts: tu_host_windows
   gather_facts: no
   tasks:
-    - name: Instalar actualizaciones de Windows
+    - name: Descargar actualizaciones
       win_updates:
         category_names:
           - SecurityUpdates
@@ -12,11 +12,6 @@
         state: installed
       register: update_result
  
-    - name: Crear archivo de registro
-      copy:
-        content: "{{ update_result | to_nice_json }}"
-        dest: "C:\ansible_log.json"
- 
-    - name: Mostrar detalles de las actualizaciones instaladas
+    - name: Mostrar detalles de las actualizaciones descargadas e instaladas
       debug:
         var: update_result
