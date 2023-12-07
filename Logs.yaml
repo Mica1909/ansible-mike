@@ -1,6 +1,6 @@
 ---
 - name: Descargar e instalar actualizaciones en Windows
-  hosts: tu_host_windows
+  hosts: all
   gather_facts: no
   tasks:
     - name: Descargar actualizaciones
