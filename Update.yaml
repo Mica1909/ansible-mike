@@ -1,6 +1,6 @@
 ---
 - name: Install Security Patches for Windows
-  hosts: windows
+  hosts: all
   gather_facts: false
 
   tasks:
