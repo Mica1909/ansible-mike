@@ -1,10 +1,11 @@
 ---
-- name: Actualizar sistema Windows y crear log de registro
+- name: Update Windows system and create log file
   hosts: all
-  become: yes  # Para ejecutar comandos con privilegios de administrador
+  become: yes
+  become_method: runas
 
   tasks:
-    - name: Actualizar sistema
+    - name: Update system
       win_updates:
         category_names:
           - SecurityUpdates
@@ -12,11 +13,12 @@
           - CriticalUpdates
         state: installed
 
-    - name: Crear log de registro
+    - name: Create log file
       win_shell: |
-        $logFilePath = "C:actualizacion.log"
+        $logFilePath = "C:update_log.txt"
         Get-HotFix | Format-Table -Property Description, InstalledOn | Out-File -FilePath $logFilePath
 
-    - name: Mostrar mensaje de finalización
+    - name: Display completion message
       debug:
-        msg: "Sistema actualizado y log creado en C:actualizacion.log"
+        msg: "System updated, and log created at C:update_log.txt"
+
