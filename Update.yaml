@@ -1,3 +1,4 @@
+---
 - name: Create log file in the root of C:
   hosts: windows
   gather_facts: false
