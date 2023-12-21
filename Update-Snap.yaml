@@ -4,7 +4,7 @@
   gather_facts: false
   become: true
   become_method: runas
-  become_user: Administrator  # Replace with the appropriate username
+  become_user: vdadm  # Replace with the appropriate username
 
   tasks:
     - name: Check for available updates
