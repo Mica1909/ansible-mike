@@ -2,6 +2,9 @@
 - name: Install Security Patches for Windows
   hosts: all
   gather_facts: false
+  become: true
+  become_method: runas
+  become_user: Administrator  # Replace with the appropriate username
 
   tasks:
     - name: Check for available updates
@@ -17,3 +20,4 @@
           - SecurityUpdates
         state: installed
       when: win_updates_result.updates | length > 0
+
