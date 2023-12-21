@@ -11,6 +11,7 @@
           - SecurityUpdates
           - CriticalUpdates
         reboot: true
+        log_path: C:\ansible_wu.txt
       tags:
         - updates
     - name: Verificar si quedan actualizaciones pendientes después del reinicio
