@@ -12,19 +12,28 @@
         reboot: true
       tags:
         - updates
+
     - name: Verificar si quedan actualizaciones pendientes después del reinicio
       win_updates:
         state: searched
       register: pending_updates
+
     - name: Mostrar listado de actualizaciones pendientes
       debug:
         var: pending_updates.updates
       tags:
         - updates
-    - name: Crear archivo de registro
+
+    - name: Crear archivo de log en el disco C:
       win_shell: |
         $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
         $logPath = "C:\ansible_log_$timestamp.txt"
-        "Actualizaciones realizadas: {{ pending_updates.updates }}" | Out-File -FilePath $logPath -Append
+        try {
+          "Actualizaciones realizadas: {{ pending_updates.updates }}" | Out-File -FilePath $logPath -Append
+          Write-Host "Archivo de log creado en $logPath"
+        } catch {
+          Write-Host "Error al crear el archivo de log: $_"
+        }
       tags:
         - log
+
