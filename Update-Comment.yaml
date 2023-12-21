@@ -21,7 +21,7 @@
       wait_for_connection:
         delay: 300
         timeout: 600
-      when: pending_updates.reboot_required
+      when: pending_updates is defined and pending_updates.reboot_required
       tags:
         - updates
       # Descripción: Esta tarea utiliza el módulo `wait_for_connection` para esperar a que los servidores se reinicien después de instalar las actualizaciones.
@@ -47,8 +47,8 @@
 
     - name: Crear archivo de log de actualizaciones
       win_shell: |
-        "{{ pending_updates.updates | join('\n') }}" | Out-File -FilePath "C:\Ruta\Al\ArchivoDeLog.txt" -Append -Encoding utf8
-      when: pending_updates.updates is defined and pending_updates.updates | length > 0
+        "{{ pending_updates.updates | join('\n') }}" | Out-File -FilePath "C:\ArchivoDeLog.txt" -Append -Encoding utf8
+      when: pending_updates is defined and pending_updates.updates | length > 0
       tags:
         - updates
       # Descripción: Esta tarea utiliza el módulo `win_shell` para crear un archivo de log que contiene el listado de actualizaciones pendientes.
@@ -56,7 +56,7 @@
 
     - name: Finalizar playbook si no hay actualizaciones pendientes
       meta: end_play
-      when: pending_updates.updates is not defined or pending_updates.updates | length == 0
+      when: pending_updates is not defined or pending_updates.updates | length == 0
       tags:
         - updates
       # Descripción: Esta tarea utiliza la tarea `meta: end_play` para finalizar el playbook si no hay actualizaciones pendientes.
