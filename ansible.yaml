@@ -1,6 +1,9 @@
 ---
 - name: Actualizar Servidores
   hosts: all
+  become: true
+  become_method: runas
+  become_user: administrator  # Replace with the appropriate username
   tasks:
     - name: Descargar e instalar actualizaciones de Windows
       win_updates:
