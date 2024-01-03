@@ -1,6 +1,6 @@
 ---
 - name: Generar archivo con hora en disco C
-  hosts: windows
+  hosts: all
   gather_facts: no
   tasks:
     - name: Obtener la hora actual
