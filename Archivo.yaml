@@ -1,5 +1,5 @@
 ---
-- name: Generar archivo con hora en disco C:
+- name: Generar archivo con hora en disco C
   hosts: windows
   gather_facts: no
   tasks:
