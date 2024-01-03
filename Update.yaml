@@ -1,6 +1,9 @@
 ---
 - name: Create log file in the root of C
   hosts: all
+  become: true
+  become_method: runas
+  become_user: vdadm 
   gather_facts: false
 
   tasks:
