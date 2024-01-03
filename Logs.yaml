@@ -1,16 +1,14 @@
 ---
-- name: Descargar e instalar actualizaciones en Windows
+- name: Crear archivo TXT en disco C
   hosts: all
+  become: true
+  become_method: runas
+  become_user: vdadm  # Reemplaza con el nombre de usuario apropiado
   gather_facts: no
   tasks:
-    - name: Descargar actualizaciones
-      win_updates:
-        category_names:
-          - SecurityUpdates
-          - CriticalUpdates
-        state: installed
-      register: update_result
- 
-    - name: Mostrar detalles de las actualizaciones descargadas e instaladas
-      debug:
-        var: update_result
+    - name: Crear archivo en disco C
+      ansible.builtin.win_shell: |
+        $content = "Contenido del archivo TXT"
+        $file_path = "C:\archivo.txt"
+        Set-Content -Path $file_path -Value $content
+
