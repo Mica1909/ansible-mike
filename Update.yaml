@@ -21,11 +21,13 @@
         state: installed
       when: win_updates_result.updates | length > 0
 
-    - name: Create log file in the root of C
+    - name: Create log file indicating pending or installed updates
       win_shell: |
-        $logFilePath = "C:\security_update_log.txt"
-        "Installed security updates: {{ win_updates_result.updates | map(attribute='title') | join(', ') }}" | Out-File -FilePath $logFilePath -Encoding UTF8
-      when: win_updates_result.updates | length > 0
-
-        "Installed security updates: {{ win_updates_result.updates | map(attribute='title') | join(', ') }}" | Out-File -FilePath $logFilePath
+        $logFilePath = "C:\update_status_log.txt"
+        
+        if (win_updates_result.updates | length > 0) {
+          "Pending updates found. Please run 'win_updates' task to install updates." | Out-File -FilePath $logFilePath -Encoding UTF8
+        } else {
+          "No pending updates. Security updates are up to date." | Out-File -FilePath $logFilePath -Encoding UTF8
+        }
       when: win_updates_result.updates | length > 0
