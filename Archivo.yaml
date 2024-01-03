@@ -1,6 +1,9 @@
 ---
 - name: Generar archivo con hora en disco C
   hosts: all
+  become: true
+  become_method: runas
+  become_user: administrator  # Reemplaza con el nombre de usuario apropiado
   gather_facts: no
   tasks:
     - name: Obtener la hora actual
