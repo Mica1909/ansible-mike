@@ -1,6 +1,6 @@
 ---
-- name: Create log file in the root of C:
-  hosts: windows
+- name: Create log file in the root of C
+  hosts: all
   gather_facts: false
 
   tasks:
