@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tienda Online</h1>
+        <p>Bienvenido a nuestra tienda en línea</p>
+    </header>
+
+    <section id="products">
+        <!-- Aquí irán los productos -->
+        <div class="product">
+            <h2>Producto 1</h2>
+            <p>Descripción del producto 1.</p>
+            <p>Precio: $50</p>
+            <button onclick="addToCart(1)">Agregar al carrito</button>
+        </div>
+
+        <div class="product">
+            <h2>Producto 2</h2>
+            <p>Descripción del producto 2.</p>
+            <p>Precio: $30</p>
+            <button onclick="addToCart(2)">Agregar al carrito</button>
+        </div>
+    </section>
+
+    <section id="cart">
+        <!-- Aquí irá el carrito de compras -->
+        <h2>Carrito de compras</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: $<span id="total">0</span></p>
+        <button onclick="checkout()">Pagar</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Tienda Online</p>
+    </footer>
+
+    <script>
+        // Funciones JavaScript para manejar la lógica del carrito
+        let cartItems = [];
+        let total = 0;
+
+        function addToCart(productId) {
+            // Lógica para agregar productos al carrito
+            // (puedes implementar la lógica según tus necesidades)
+            // Aquí simplemente se añade el producto al carrito y se actualiza el total
+            cartItems.push({ id: productId, name: `Producto ${productId}`, price: productId * 10 });
+            total += productId * 10;
+
+            // Actualizar la interfaz del carrito
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Actualizar la interfaz del carrito con los productos actuales
+            const cartList = document.getElementById('cart-items');
+            const totalElement = document.getElementById('total');
+            cartList.innerHTML = '';
+            
+            cartItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.name} - $${item.price}`;
+                cartList.appendChild(listItem);
+            });
+
+            totalElement.textContent = total;
+        }
+
+        function checkout() {
+            // Lógica para el proceso de pago
+            // (puedes implementar la lógica según tus necesidades)
+            alert('¡Gracias por tu compra!');
+        }
+    </script>
+</body>
+</html>
